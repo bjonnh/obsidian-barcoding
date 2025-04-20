@@ -129,6 +129,6 @@ To create a new release:
 1. Update the version in package.json
 2. Run `npm run version` to update the version in manifest.json and versions.json
 3. Commit the changes
-4. Create and push a new tag matching the version number (e.g., `git tag 1.0.1 && git push origin 1.0.1`)
+4. Create and push a new tag matching the version number (e.g., `git tag v1.0.1 && git push origin v1.0.1`)
 
 The GitHub Actions workflow will automatically create the release.
