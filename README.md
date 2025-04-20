@@ -1,94 +1,134 @@
-# Obsidian Sample Plugin
+# Obsidian Barcoding Plugin
 
-This is a sample plugin for Obsidian (https://obsidian.md).
+This plugin allows you to scan QR codes using your device's camera and open the corresponding notes in Obsidian. It also enables you to generate QR codes directly in your notes using code blocks.
 
-This project uses TypeScript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in TypeScript Definition format, which contains TSDoc comments describing what it does.
+## Features
 
-This sample plugin demonstrates some of the basic functionality the plugin API can do.
-- Adds a ribbon icon, which shows a Notice when clicked.
-- Adds a command "Open Sample Modal" which opens a Modal.
-- Adds a plugin setting tab to the settings page.
-- Registers a global click event and output 'click' to the console.
-- Registers a global interval which logs 'setInterval' to the console.
+- Scan QR codes using your device's camera
+- Generate QR codes directly in your notes using code blocks
+- Automatically open notes based on QR code content
+- Automatically create notes if they don't exist
+- Configure camera preferences (front or back camera)
+- Adjust scan delay for performance optimization
 
-## First time developing plugins?
+## Installation
 
-Quick starting guide for new plugin devs:
+For now it is manual, you can probably use BRAT.
 
-- Check if [someone already developed a plugin for what you want](https://obsidian.md/plugins)! There might be an existing plugin similar enough that you can partner up with.
-- Make a copy of this repo as a template with the "Use this template" button (login to GitHub if you don't see it).
-- Clone your repo to a local development folder. For convenience, you can place this folder in your `.obsidian/plugins/your-plugin-name` folder.
-- Install NodeJS, then run `npm i` in the command line under your repo folder.
-- Run `npm run dev` to compile your plugin from `main.ts` to `main.js`.
-- Make changes to `main.ts` (or create new `.ts` files). Those changes should be automatically compiled into `main.js`.
-- Reload Obsidian to load the new version of your plugin.
-- Enable plugin in settings window.
-- For updates to the Obsidian API run `npm update` in the command line under your repo folder.
+The camera scanning does NOT work on Android because the application doesn't have the permissions for that.
+To work around it, what I do is make QR codes like this:
 
-## Releasing new releases
-
-- Update your `manifest.json` with your new version number, such as `1.0.1`, and the minimum Obsidian version required for your latest release.
-- Update your `versions.json` file with `"new-plugin-version": "minimum-obsidian-version"` so older versions of Obsidian can download an older version of your plugin that's compatible.
-- Create new GitHub release using your new version number as the "Tag version". Use the exact version number, don't include a prefix `v`. See here for an example: https://github.com/obsidianmd/obsidian-sample-plugin/releases
-- Upload the files `manifest.json`, `main.js`, `styles.css` as binary attachments. Note: The manifest.json file must be in two places, first the root path of your repository and also in the release.
-- Publish the release.
-
-> You can simplify the version bump process by running `npm version patch`, `npm version minor` or `npm version major` after updating `minAppVersion` manually in `manifest.json`.
-> The command will bump version in `manifest.json` and `package.json`, and add the entry for the new version to `versions.json`
-
-## Adding your plugin to the community plugin list
-
-- Check the [plugin guidelines](https://docs.obsidian.md/Plugins/Releasing/Plugin+guidelines).
-- Publish an initial version.
-- Make sure you have a `README.md` file in the root of your repo.
-- Make a pull request at https://github.com/obsidianmd/obsidian-releases to add your plugin.
-
-## How to use
-
-- Clone this repo.
-- Make sure your NodeJS is at least v16 (`node --version`).
-- `npm i` or `yarn` to install dependencies.
-- `npm run dev` to start compilation in watch mode.
-
-## Manually installing the plugin
-
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
-
-## Improve code quality with eslint (optional)
-- [ESLint](https://eslint.org/) is a tool that analyzes your code to quickly find problems. You can run ESLint against your plugin to find common bugs and ways to improve your code. 
-- To use eslint with this project, make sure to install eslint from terminal:
-  - `npm install -g eslint`
-- To use eslint to analyze this project use this command:
-  - `eslint main.ts`
-  - eslint will then create a report with suggestions for code improvement by file and line number.
-- If your source code is in a folder, such as `src`, you can use eslint with this command to analyze all files in that folder:
-  - `eslint .\src\`
-
-## Funding URL
-
-You can include funding URLs where people who use your plugin can financially support it.
-
-The simple way is to set the `fundingUrl` field to your link in your `manifest.json` file:
-
-```json
-{
-    "fundingUrl": "https://buymeacoffee.com"
-}
+```qrcode
+obsidian://open?file=foo.md
 ```
 
-If you have multiple URLs, you can also do:
+or do 
 
-```json
-{
-    "fundingUrl": {
-        "Buy Me a Coffee": "https://buymeacoffee.com",
-        "GitHub Sponsor": "https://github.com/sponsors",
-        "Patreon": "https://www.patreon.com/"
-    }
-}
+```qrcodelocal
 ```
 
-## API Documentation
+Which will generate a qrcode with an obsidian link for the current file in the current vault.
 
-See https://github.com/obsidianmd/obsidian-api
+And you can use the Android camera that will open Obsidian on the right note.
+
+### From Obsidian Community Plugins (NOT YET)
+
+1. Open Obsidian
+2. Go to Settings > Community plugins
+3. Turn off Safe mode if it's on
+4. Click "Browse" and search for "Barcoding"
+5. Install the plugin
+6. Enable the plugin after installation
+
+### Manual Installation
+
+1. Download the latest release from the [GitHub releases page](https://github.com/bjonnh/obsidian-barcoding/releases)
+2. Extract the downloaded zip file
+3. Copy the extracted folder to your vault's plugins folder: `<vault>/.obsidian/plugins/`
+4. Enable the plugin in Obsidian's Community Plugins settings
+
+## Usage
+
+### Scanning QR Codes
+
+1. Click the barcode icon in the left ribbon, or
+2. Use the command palette (Ctrl/Cmd+P) and search for "Scan QR Code"
+3. Grant camera access permission when prompted
+4. Point your camera at a QR code
+5. The plugin will automatically detect the QR code and open the corresponding note
+6. If the note doesn't exist, it will be automatically created
+
+### Creating QR Codes for Notes
+
+#### Using Code Blocks
+
+You can now generate QR codes directly in your notes using code blocks:
+
+```
+```qrcode
+MyFolder/MyNote.md
+```
+```
+
+This will generate a QR code that links to the specified note. When scanned with the plugin, it will open that note.
+
+You can also generate a QR code that includes both the vault ID and file path, which is useful for sharing links across different devices or vaults:
+
+```
+```qrcodelocal
+```
+```
+
+This will generate a QR code with the URI: `obsidian://open?vault=<vault_id>&file=<filePath>` where:
+- `<vault_id>` is the ID of your current vault
+- `<filePath>` is the path of the current file
+
+When scanned, this QR code will open the specific file in the specific vault, even from another device.
+
+#### Using External QR Code Generators
+
+To create a QR code that links to a specific note using external tools:
+
+1. The QR code should contain the path to the note in your vault
+2. For example, if you have a note at `MyFolder/MyNote.md`, the QR code can contain either `MyFolder/MyNote.md` or `MyFolder/MyNote` (the .md extension is optional and will be added automatically if missing)
+3. You can use any QR code generator to create QR codes with these paths
+
+### Settings
+
+You can configure the plugin in the Settings tab:
+
+1. **Default Camera**: Choose between front and back camera
+2. **Scan Delay**: Adjust the delay between scans (lower values may affect performance)
+
+## Permissions
+
+This plugin requires camera access to scan QR codes. The camera is only accessed when you explicitly initiate a scan.
+
+## Troubleshooting
+
+- **Camera not working**: Make sure you've granted camera permissions to Obsidian
+- **QR code not detected**: Ensure adequate lighting and that the QR code is clearly visible
+- **Note creation failed**: Verify that the path in the QR code is valid and that you have write permissions in your vault
+
+## Support
+
+If you encounter any issues or have feature requests, please [open an issue](https://github.com/bjonnh/obsidian-barcoding/issues) on GitHub.
+
+## Development
+
+### Releasing
+
+This plugin uses GitHub Actions to automatically create release files. When a new tag is pushed to the repository, the workflow will:
+
+1. Build the plugin
+2. Create a zip file containing all necessary files (main.js, manifest.json, styles.css, versions.json)
+3. Create a GitHub release with the zip file attached
+
+To create a new release:
+
+1. Update the version in package.json
+2. Run `npm run version` to update the version in manifest.json and versions.json
+3. Commit the changes
+4. Create and push a new tag matching the version number (e.g., `git tag 1.0.1 && git push origin 1.0.1`)
+
+The GitHub Actions workflow will automatically create the release.
