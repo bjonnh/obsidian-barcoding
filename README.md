@@ -33,7 +33,7 @@ And you can use the Android camera that will open Obsidian on the right note.
 
 You can then print your documents and get the code:
 
-![[images/example_pdf.png]]
+![A pdf document showing a QR code in a grey box in the top left corner](./images/example_pdf.png)
 
 
 ## Installation
