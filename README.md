@@ -14,13 +14,16 @@ This plugin allows you to scan QR codes using your device's camera and open the 
 The camera scanning does NOT work on Android because the application doesn't have the permissions for that.
 To work around it, what I do is make QR codes like this:
 
+```
 ```qrcode
 obsidian://open?file=foo.md
 ```
+```
 
 or do
-
+```
 ```qrcodelocal
+```
 ```
 
 Which will generate a qrcode with an obsidian link for the current file in the current vault.
