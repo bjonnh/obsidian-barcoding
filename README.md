@@ -21,6 +21,7 @@ obsidian://open?file=foo.md
 ```
 
 or do
+
 ```
 ```qrcodelocal
 ```
