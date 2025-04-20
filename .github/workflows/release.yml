@@ -3,7 +3,9 @@ name: Release Plugin
 on:
   push:
     tags:
-      - '*'
+      - 'v*.*.*'
+  workflow_dispatch:
+
 
 jobs:
   build:
@@ -40,5 +42,3 @@ jobs:
             obsidian-barcoding-${{ github.ref_name }}.zip
           draft: false
           prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
