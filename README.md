@@ -4,16 +4,12 @@ This plugin allows you to scan QR codes using your device's camera and open the 
 
 ## Features
 
-- Scan QR codes using your device's camera
+- Scan QR codes using your device's camera (Desktop only)
 - Generate QR codes directly in your notes using code blocks
 - Automatically open notes based on QR code content
-- Automatically create notes if they don't exist
+- Automatically create notes if they don't exist (only if not using obsidian URIs)
 - Configure camera preferences (front or back camera)
-- Adjust scan delay for performance optimization
-
-## Installation
-
-For now it is manual, you can probably use BRAT.
+- Adjust scan delay (not sure why but that's here)
 
 The camera scanning does NOT work on Android because the application doesn't have the permissions for that.
 To work around it, what I do is make QR codes like this:
@@ -22,7 +18,7 @@ To work around it, what I do is make QR codes like this:
 obsidian://open?file=foo.md
 ```
 
-or do 
+or do
 
 ```qrcodelocal
 ```
@@ -30,6 +26,10 @@ or do
 Which will generate a qrcode with an obsidian link for the current file in the current vault.
 
 And you can use the Android camera that will open Obsidian on the right note.
+
+## Installation
+
+For now it is manual, you can probably use BRAT too. I recomment going with the zip for now.
 
 ### From Obsidian Community Plugins (NOT YET)
 
