@@ -14,22 +14,27 @@ This plugin allows you to scan QR codes using your device's camera and open the 
 The camera scanning does NOT work on Android because the application doesn't have the permissions for that.
 To work around it, what I do is make QR codes like this:
 
-```
+````
 ```qrcode
 obsidian://open?file=foo.md
 ```
-```
+````
 
 or do
 
-```
+````
 ```qrcodelocal
 ```
-```
+````
 
 Which will generate a qrcode with an obsidian link for the current file in the current vault.
 
 And you can use the Android camera that will open Obsidian on the right note.
+
+You can then print your documents and get the code:
+
+![[images/example_pdf.png]]
+
 
 ## Installation
 
@@ -68,20 +73,20 @@ For now it is manual, you can probably use BRAT too. I recomment going with the 
 
 You can now generate QR codes directly in your notes using code blocks:
 
-```
+````
 ```qrcode
 MyFolder/MyNote.md
 ```
-```
+````
 
 This will generate a QR code that links to the specified note. When scanned with the plugin, it will open that note.
 
 You can also generate a QR code that includes both the vault ID and file path, which is useful for sharing links across different devices or vaults:
 
-```
+````
 ```qrcodelocal
 ```
-```
+````
 
 This will generate a QR code with the URI: `obsidian://open?vault=<vault_id>&file=<filePath>` where:
 - `<vault_id>` is the ID of your current vault
